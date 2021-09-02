@@ -1,21 +1,28 @@
+import { PixelPainterStore, setSelectedColor } from '../stores/PixelPainterStore'
+
 type SelectColorButtonProps = {
-  color: string;
+    color: string;
 }
 
 const SelectColorButton = ({ color }: SelectColorButtonProps) => {
 
-  //modify this function to highlight correctly
-  const computeRingSize = () => {
-    return ""
-    return "ring-8 ring-green-400"
-  }
+    //modify this function to highlight correctly
+    const state = PixelPainterStore.useState();
 
-  return (
-    <div className={`${computeRingSize()} rounded-md border-black border-2 w-12 h-12 cursor-pointer`}
-      style={{ backgroundColor: color }}
-    >
-    </div>
-  )
+    const computeRingSize = () => {
+        if (state.selectedColor == color){
+            return "ring-8 ring-green-400"
+        }
+        return ""
+    }
+
+    return (
+        <div className={`${computeRingSize()} rounded-md border-black border-2 w-12 h-12 cursor-pointer`}
+            style={{ backgroundColor: color }}
+            onClick={() => {setSelectedColor(color)}}
+        >
+        </div>
+    )
 }
 
 export default SelectColorButton
